@@ -3,323 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela de Preços de Arte IA</title>
+    <title>Infográfico: Estratégia da Startup de Games</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Chosen Palette: Soft Neutrals (Background: #F7F7F7, Text: #333333, Accent: #4A90E2, Card: #FFFFFF) -->
-    <!-- Application Structure Plan: The application is structured as a single-page interface. It starts with a clear title and introduction. The core is an interactive package selector (using tabs) that dynamically displays the details of the selected plan in a clean card format, preventing information overload. This is more user-friendly than a static table, especially on mobile. Below, a bar chart provides a quick visual comparison of package features (price and revisions). Finally, important supplementary notes and a call-to-action are presented in distinct, easily digestible sections. This structure guides the user from general information to specific details and finally to a decision point. -->
-    <!-- Visualization & Content Choices: 
-        - Package Details: Presented in an interactive card updated via JavaScript. Goal: Inform/Compare. Method: Clickable tabs update a central content area. Justification: Focuses user attention and improves UX over a static table.
-        - Price/Revision Comparison: Bar chart using Chart.js. Goal: Compare. Method: A horizontal bar chart visualizes price and revision counts. Justification: Allows for immediate, intuitive comparison of package value.
-        - Icons: Font Awesome icons are used to visually tag features. Goal: Enhance readability. Method: Unicode icons next to feature names. Justification: Improves scannability and visual appeal.
-        - Notes & CTA: Placed in separate, styled sections. Goal: Inform and Convert. Method: Simple, clear text blocks and a styled button. Justification: Separates primary content from secondary information and provides a clear next step. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .tab-active {
-            background-color: #3b82f6;
-            color: white;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        .tab {
-            transition: all 0.3s ease-in-out;
-        }
-        .card {
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            transition: all 0.3s ease-in-out;
         }
         .chart-container {
             position: relative;
-            height: 40vh;
-            max-height: 400px;
             width: 100%;
-            max-width: 800px;
-            margin: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-arrow::after {
+            content: '→';
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #00AEEF;
+            margin: 0 1rem;
+        }
+        .flow-arrow-down::after {
+            content: '↓';
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #00AEEF;
+            margin-top: 1rem;
+            display: block;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -33px;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 9999px;
+            background-color: #00AEEF;
+            border: 4px solid #0079C2;
+            z-index: 1;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -22px;
+            width: 4px;
+            background-color: #004AAD;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-100 text-gray-800">
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <header class="text-center mb-8 md:mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Planos de Arte com IA</h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Escolha o plano ideal para dar vida às suas ideias com o poder da inteligência artificial.</p>
+    <!-- PALETTE: Brilliant Blues -->
+    <!-- CONFIRMATION: NEITHER Mermaid JS NOR SVG were used anywhere in the output. -->
+    
+    <div class="container mx-auto p-4 md:p-8">
+
+        <!-- Section 1: The Vision & The Challenge -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-[#004AAD] mb-2">NOSSO FUTURO: CONSTRUIR UM MMORPG</h1>
+            <p class="text-lg md:text-xl text-gray-600">Uma jornada estratégica para transformar paixão em um negócio sólido e sustentável.</p>
         </header>
 
-        <main>
-            <!-- Package Selection Tabs -->
-            <div id="package-tabs" class="flex justify-center flex-wrap gap-2 mb-8">
-                <button data-package="basico" class="tab py-2 px-5 rounded-full text-sm font-semibold bg-white shadow-md">Básico</button>
-                <button data-package="standard" class="tab py-2 px-5 rounded-full text-sm font-semibold bg-white shadow-md">Standard</button>
-                <button data-package="premium" class="tab py-2 px-5 rounded-full text-sm font-semibold bg-white shadow-md">Premium</button>
-                <button data-package="personalizado" class="tab py-2 px-5 rounded-full text-sm font-semibold bg-white shadow-md">Personalizado</button>
+        <section class="mb-16 bg-white rounded-lg shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-[#004AAD] mb-6">O Desafio do Sonho: Por que é Tão Difícil?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-5xl md:text-6xl font-extrabold text-[#0079C2] mb-2">$20-100M</p>
+                    <p class="text-lg font-semibold text-gray-700">Custo de Desenvolvimento</p>
+                    <p class="text-sm text-gray-500">Um investimento massivo necessário para competir.</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-5xl md:text-6xl font-extrabold text-[#0079C2] mb-2">5-10 Anos</p>
+                    <p class="text-lg font-semibold text-gray-700">Tempo de Produção</p>
+                    <p class="text-sm text-gray-500">Um ciclo de desenvolvimento longo e complexo.</p>
+                </div>
             </div>
+            <p class="mt-6 text-center text-gray-600">A principal causa de falha para estúdios independentes é a falta de caixa para sustentar um projeto dessa magnitude. Nossa estratégia foi desenhada para superar exatamente este obstáculo.</p>
+        </section>
 
-            <!-- Package Details Card -->
-            <section id="package-details" class="mb-12">
-                <div id="card-container" class="card bg-white rounded-xl overflow-hidden max-w-4xl mx-auto">
-                    <!-- Dynamic content will be injected here -->
+        <!-- Section 2: Our Strategic Solution -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-[#004AAD] mb-8">Nossa Solução: A Estrutura que Viabiliza o Sonho</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <p class="text-center text-gray-600 mb-8">Não vamos depender da sorte. Construiremos um ecossistema financeiro que alimenta nosso estúdio. O lucro de projetos menores e negócios paralelos será o combustível para nosso objetivo final.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-[#00AEEF] text-white p-4 rounded-lg shadow-md mb-2">
+                            <h3 class="font-bold">Jogos Menores</h3>
+                        </div>
+                        <div class="bg-[#00AEEF] text-white p-4 rounded-lg shadow-md">
+                            <h3 class="font-bold">Subsidiárias</h3>
+                        </div>
+                    </div>
+                    <div class="flow-arrow-down md:flow-arrow-down-none md:flow-arrow"></div>
+                    <div class="bg-[#0079C2] text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold">Estúdio Principal</h3>
+                        <p>(Reinvestimento de Lucro)</p>
+                    </div>
+                    <div class="flow-arrow-down md:flow-arrow-down-none md:flow-arrow"></div>
+                    <div class="bg-[#004AAD] text-white p-8 rounded-lg shadow-xl">
+                        <h3 class="text-2xl font-bold">🚀 MMORPG 🚀</h3>
+                    </div>
                 </div>
-            </section>
-            
-            <!-- Comparison Chart Section -->
-            <section class="mb-12">
-                <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800">Comparativo Rápido</h2>
-                <p class="text-center text-gray-600 mb-8 max-w-xl mx-auto">Visualize rapidamente as principais diferenças entre os nossos pacotes. O pacote "Personalizado" não está incluído no gráfico, pois os seus valores são definidos sob consulta.</p>
-                <div class="chart-container bg-white p-4 rounded-xl shadow-md">
-                    <canvas id="packagesChart"></canvas>
-                </div>
-            </section>
-            
-            <!-- Additional Notes Section -->
-            <section class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Informações Importantes</h2>
-                <ul class="space-y-3 text-gray-600">
-                    <li class="flex items-start">
-                        <i class="fas fa-lightbulb text-blue-500 mt-1 mr-3"></i>
-                        <span><strong class="font-semibold text-gray-700">Prompts:</strong> Quanto mais detalhada for a sua descrição (prompt), mais alinhado será o resultado final. Estamos aqui para ajudar a refinar as suas ideias.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-gavel text-blue-500 mt-1 mr-3"></i>
-                        <span><strong class="font-semibold text-gray-700">Direitos de Uso:</strong> Após a conclusão e pagamento, todas as imagens criadas são de sua propriedade, com direitos para uso comercial e pessoal.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-credit-card text-blue-500 mt-1 mr-3"></i>
-                        <span><strong class="font-semibold text-gray-700">Pagamento:</strong> Aceitamos Pix e transferência bancária. O pagamento é de 50% no início e 50% na entrega final.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-plus-circle text-blue-500 mt-1 mr-3"></i>
-                        <span><strong class="font-semibold text-gray-700">Revisões Adicionais:</strong> Precisando de mais ajustes? Revisões extras podem ser solicitadas e serão cobradas à parte.</span>
-                    </li>
-                </ul>
-                <div class="mt-6 text-center">
-                    <a href="mailto:contato@exemplo.com" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 inline-block">
-                        Solicitar Orçamento
-                    </a>
-                </div>
-            </section>
-            
-        </main>
+            </div>
+        </section>
 
-        <footer class="text-center mt-12 text-gray-500 text-sm">
-            <p>&copy; 2025 Arte IA. Todos os direitos reservados ao Umbre.</p>
-        </footer>
+        <!-- Section 3: The Financial Engine -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-[#004AAD] mb-8">O Motor Financeiro: Geração de Capital</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-center mb-1">Fontes de Renda Mensal (Metas Iniciais)</h3>
+                    <p class="text-center text-gray-500 mb-6">Múltiplos fluxos de receita para garantir estabilidade e crescimento.</p>
+                    <div class="chart-container mx-auto max-w-2xl">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-center mb-1">Estratégia de Reinvestimento</h3>
+                     <p class="text-center text-gray-500 mb-6">Parte do lucro será investido para acelerar o crescimento do capital.</p>
+                    <div class="chart-container mx-auto max-w-xs">
+                        <canvas id="investmentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: The Master Plan -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-[#004AAD] mb-8">Nosso Roadmap: O Caminho para o Lançamento</h2>
+            <div class="relative p-8 md:pl-16">
+                <div class="timeline-line"></div>
+                <div class="relative pl-8 mb-10 timeline-item">
+                    <h3 class="text-xl font-bold text-[#0079C2]">Fase 1: Consolidar Estúdio (Anos 1–3)</h3>
+                    <p class="text-gray-600">Lançar de 1 a 2 jogos pequenos para construir nosso portfólio, ganhar reputação e aprender com a indústria. Foco em criar uma base sólida.</p>
+                </div>
+                <div class="relative pl-8 mb-10 timeline-item">
+                    <h3 class="text-xl font-bold text-[#0079C2]">Fase 2: Criar Subsidiárias (Anos 2–4)</h3>
+                    <p class="text-gray-600">Estabelecer e estabilizar fontes de renda secundárias (venda de assets, conteúdo, etc.) para gerar um fluxo de caixa consistente e previsível para o estúdio.</p>
+                </div>
+                <div class="relative pl-8 mb-10 timeline-item">
+                    <h3 class="text-xl font-bold text-[#0079C2]">Fase 3: Validar Protótipo MMO (Anos 4–6)</h3>
+                    <p class="text-gray-600">Desenvolver um protótipo robusto do MMORPG, coletar feedback da comunidade e refinar a visão do jogo. Provar o conceito para futuros parceiros.</p>
+                </div>
+                <div class="relative pl-8 timeline-item">
+                    <h3 class="text-xl font-bold text-[#0079C2]">Fase 4: Lançar MMORPG (Ano 6+)</h3>
+                    <p class="text-gray-600">Buscar parceria com um publisher ou uma rodada de captação de investimento para escalar a produção e lançar o MMORPG no mercado global.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: First Steps -->
+        <section>
+             <h2 class="text-2xl md:text-3xl font-bold text-center text-[#004AAD] mb-8">Primeiros Passos Concretos: O Que Faremos Agora</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                 <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-4xl mb-2">🏢</p>
+                    <h3 class="font-bold text-lg">Formalizar</h3>
+                    <p class="text-sm text-gray-600">Abrir um MEI para cada sócio para operar legalmente.</p>
+                 </div>
+                 <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-4xl mb-2">🎓</p>
+                    <h3 class="font-bold text-lg">Capacitação</h3>
+                    <p class="text-sm text-gray-600">Dedicar 5-10h/semana a cursos (Unity, Sebrae, etc).</p>
+                 </div>
+                 <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-4xl mb-2">🕹️</p>
+                    <h3 class="font-bold text-lg">Primeiro Projeto</h3>
+                    <p class="text-sm text-gray-600">Criar um protótipo de jogo simples em 6 meses.</p>
+                 </div>
+                  <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-4xl mb-2">🤝</p>
+                    <h3 class="font-bold text-lg">Networking</h3>
+                    <p class="text-sm text-gray-600">Conectar com estúdios e participar de eventos da área.</p>
+                 </div>
+             </div>
+        </section>
     </div>
 
     <script>
-        const packageData = {
-            basico: {
-                title: 'Pacote Básico',
-                price: 'R$ 30,00',
-                priceNum: 30,
-                description: 'Criação de uma imagem a partir de uma descrição textual (prompt). Ideal para quem precisa de uma imagem rápida e simples.',
-                features: [
-                    { icon: 'fas fa-edit', text: '1 revisão menor' },
-                    { icon: 'fas fa-file-image', text: 'Formatos: JPG, PNG' },
-                    { icon: 'fas fa-expand-arrows-alt', text: 'Resolução: 1024x1024 pixels' },
-                    { icon: 'fas fa-clock', text: 'Entrega em 24 horas' }
-                ],
-                revisions: 1,
-                color: 'rgba(59, 130, 246, 0.7)'
-            },
-            standard: {
-                title: 'Pacote Standard',
-                price: 'R$ 75,00',
-                priceNum: 75,
-                description: 'Criação de uma imagem com maior detalhe e complexidade, incluindo a possibilidade de múltiplos elementos ou estilos específicos.',
-                features: [
-                    { icon: 'fas fa-edit', text: '2 revisões' },
-                    { icon: 'fas fa-file-image', text: 'Formatos: JPG, PNG, WebP' },
-                    { icon: 'fas fa-expand-arrows-alt', text: 'Resolução: Até 2048x2048 pixels' },
-                    { icon: 'fas fa-clock', text: 'Entrega em 48 horas' }
-                ],
-                revisions: 2,
-                color: 'rgba(234, 179, 8, 0.7)'
-            },
-            premium: {
-                title: 'Pacote Premium',
-                price: 'R$ 150,00',
-                priceNum: 150,
-                description: 'Arte IA de alta qualidade com atenção aos detalhes, ideal para projetos comerciais ou pessoais que exigem excelência. Inclui upscaling para resoluções maiores e ajustes finos.',
-                features: [
-                    { icon: 'fas fa-edit', text: '3 revisões detalhadas' },
-                    { icon: 'fas fa-file-image', text: 'Formatos: JPG, PNG, WebP, TIFF' },
-                    { icon: 'fas fa-expand-arrows-alt', text: 'Resolução: Até 4096x4096 pixels' },
-                    { icon: 'fas fa-clock', text: 'Entrega em 72 horas' }
-                ],
-                revisions: 3,
-                color: 'rgba(239, 68, 68, 0.7)'
-            },
-            personalizado: {
-                title: 'Pacote Personalizado',
-                price: 'Sob Consulta',
-                priceNum: null,
-                description: 'Para projetos especiais que exigem múltiplas imagens, personagens consistentes, estilos artísticos específicos, integração com branding ou animações curtas.',
-                features: [
-                    { icon: 'fas fa-edit', text: 'Revisões ilimitadas' },
-                    { icon: 'fas fa-file-image', text: 'Todos os formatos disponíveis' },
-                    { icon: 'fas fa-expand-arrows-alt', text: 'Resolução personalizada' },
-                    { icon: 'fas fa-clock', text: 'Prazo a definir' }
-                ],
-                revisions: null,
-                color: 'rgba(107, 114, 128, 0.7)'
+        const chartJsTooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: '#4b5563' 
+                    }
+                }
             }
         };
 
-        let currentChart;
+        const chartJsTicksConfig = {
+            ticks: {
+                color: '#4b5563' 
+            }
+        };
 
-        function updateCard(packageName) {
-            const data = packageData[packageName];
-            const container = document.getElementById('card-container');
-            
-            container.innerHTML = `
-                <div class="p-6 md:p-8">
-                    <h3 class="text-3xl font-bold text-gray-900">${data.title}</h3>
-                    <p class="text-gray-500 mt-2 mb-6">${data.description}</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-                        ${data.features.map(feature => `
-                            <div class="flex items-center">
-                                <i class="${feature.icon} text-blue-500 w-5 text-center mr-3"></i>
-                                <span>${feature.text}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="mt-8 text-center">
-                        <p class="text-4xl font-extrabold text-gray-900">${data.price}</p>
-                        <p class="text-sm text-gray-500">${packageName !== 'personalizado' ? 'por imagem' : 'Vamos conversar sobre seu projeto'}</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        function createChart() {
-            const ctx = document.getElementById('packagesChart').getContext('2d');
-            const labels = ['Básico', 'Standard', 'Premium'];
-            const prices = [packageData.basico.priceNum, packageData.standard.priceNum, packageData.premium.priceNum];
-            const revisions = [packageData.basico.revisions, packageData.standard.revisions, packageData.premium.revisions];
-            
-            Chart.defaults.font.family = "'Inter', sans-serif";
-
-            currentChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Preço (R$)',
-                            data: prices,
-                            backgroundColor: 'rgba(59, 130, 246, 0.6)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 1,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'Revisões',
-                            data: revisions,
-                            backgroundColor: 'rgba(234, 179, 8, 0.6)',
-                            borderColor: 'rgba(234, 179, 8, 1)',
-                            borderWidth: 1,
-                            yAxisID: 'y1'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            display: false,
-                            beginAtZero: true
-                        },
-                        y: {
-                            id: 'y',
-                            type: 'category',
-                            position: 'left',
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            }
-                        },
-                        y1: {
-                            id: 'y1',
-                            type: 'category',
-                            position: 'right',
-                            labels: ['1', '2', '3'], 
-                            grid: {
-                                display: false
-                            },
-                             ticks: {
-                                callback: function(value, index, values) {
-                                    return revisions[index] + (revisions[index] > 1 ? ' revisões' : ' revisão');
-                                },
-                                font: {
-                                    size: 12
-                                }
-                            }
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jogo Inicial', 'Canal de Games', ['Venda de', 'Assets']],
+                datasets: [{
+                    label: 'Meta de Renda Mensal (R$)',
+                    data: [3000, 2000, 500],
+                    backgroundColor: ['#004AAD', '#0079C2', '#00AEEF'],
+                    borderColor: ['#003c8f', '#0069a8', '#009ad5'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...chartJsTooltipConfig,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ...chartJsTicksConfig,
+                        title: {
+                            display: true,
+                            text: 'Receita (R$)',
+                            color: '#4b5563'
                         }
                     },
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.dataset.label.includes('Preço')) {
-                                        label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.raw);
-                                    } else {
-                                        label += context.raw;
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
+                    x: {
+                       ...chartJsTicksConfig
                     }
                 }
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('#package-tabs button');
-            
-            function setActiveTab(selectedTab) {
-                tabs.forEach(tab => {
-                    if (tab === selectedTab) {
-                        tab.classList.add('tab-active');
-                        tab.classList.remove('bg-white');
-                    } else {
-                        tab.classList.remove('tab-active');
-                        tab.classList.add('bg-white');
-                    }
-                });
-                const packageName = selectedTab.dataset.package;
-                updateCard(packageName);
             }
+        });
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    setActiveTab(tab);
-                });
-            });
-
-            setActiveTab(tabs[0]);
-            createChart();
+        // Investment Chart
+        const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+        new Chart(investmentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Reinvestido na Operação', 'Investido em ETFs'],
+                datasets: [{
+                    label: 'Distribuição do Lucro',
+                    data: [75, 25],
+                    backgroundColor: ['#0079C2', '#00AEEF'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                ...chartJsTooltipConfig,
+                maintainAspectRatio: false,
+                cutout: '60%'
+            }
         });
     </script>
+
 </body>
 </html>
+
